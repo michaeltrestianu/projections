@@ -17,7 +17,7 @@ interface VybesReward {
 }
 
 const App: React.FC = () => {
-  const [costPercentage, setCostPercentage] = useState<number>(3);
+  const [costPercentage, setCostPercentage] = useState<number>(1.35);
   const [totalCommissionPercentage, setTotalCommissionPercentage] =
     useState<number>(8);
   const [
