@@ -106,7 +106,7 @@ const App: React.FC = () => {
           onChange={(e) => setFeePerTransaction(parseFloat(e.target.value))}
         />
         <TextField
-          label="Total Commission Percentage (%)"
+          label="Total Tillo Commission Percentage (%)"
           type="number"
           value={totalCommissionPercentage}
           onChange={(e) =>
@@ -123,7 +123,7 @@ const App: React.FC = () => {
           inputProps={{ min: 0, max: 100 }}
         />
         <TextField
-          label="Average Transaction Value (£)"
+          label="Average Gift Card Transaction Value (£)"
           type="number"
           value={averageTransactionValue}
           onChange={(e) =>
