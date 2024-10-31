@@ -18,6 +18,7 @@ interface VybesReward {
 
 const App: React.FC = () => {
   const [costPercentage, setCostPercentage] = useState<number>(1.35);
+  const [feePerTransaction, setFeePerTransaction] = useState<number>(0.1);
   const [totalCommissionPercentage, setTotalCommissionPercentage] =
     useState<number>(8);
   const [
@@ -97,6 +98,12 @@ const App: React.FC = () => {
           type="number"
           value={costPercentage}
           onChange={(e) => setCostPercentage(parseFloat(e.target.value))}
+        />
+        <TextField
+          label="Fee per transaction (£)"
+          type="number"
+          value={feePerTransaction}
+          onChange={(e) => setFeePerTransaction(parseFloat(e.target.value))}
         />
         <TextField
           label="Total Commission Percentage (%)"
@@ -242,6 +249,7 @@ const App: React.FC = () => {
       </Box>
       <ProjectionTable
         costPercentage={costPercentage}
+        feePerTransaction={feePerTransaction}
         totalCommissionPercentage={totalCommissionPercentage}
         commissionPassedToCustomerPercentage={
           commissionPassedToCustomerPercentage

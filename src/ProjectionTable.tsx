@@ -19,6 +19,7 @@ interface VybesReward {
 
 interface ProjectionTableProps {
   costPercentage: number;
+  feePerTransaction: number;
   totalCommissionPercentage: number;
   commissionPassedToCustomerPercentage: number;
   averageTransactionValue: number;
@@ -52,6 +53,7 @@ interface Projection {
 
 const ProjectionTable: React.FC<ProjectionTableProps> = ({
   costPercentage,
+  feePerTransaction,
   totalCommissionPercentage,
   commissionPassedToCustomerPercentage,
   averageTransactionValue,
@@ -71,6 +73,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
 
   if (
     costPercentage < 0 ||
+    feePerTransaction < 0 ||
     totalCommissionPercentage <= 0 ||
     commissionPassedToCustomerPercentage < 0 ||
     commissionPassedToCustomerPercentage > 100 ||
@@ -129,7 +132,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
     const revenue = commissionKeptAsProfit;
 
     const totalTransactionCostAmount =
-      (costPercentage / 100) * totalTransactionAmount;
+      ((costPercentage / 100) * totalTransactionAmount) + (feePerTransaction * transactionVolume);
 
     const netRevenue = revenue - totalTransactionCostAmount - totalVybesValue;
 
