@@ -94,7 +94,7 @@ const App: React.FC = () => {
       >
         {/* Existing input fields */}
         <TextField
-          label="Cost Percentage (%)"
+          label="Transaction Percentage Fee (%)"
           type="number"
           value={costPercentage}
           onChange={(e) => setCostPercentage(parseFloat(e.target.value))}
