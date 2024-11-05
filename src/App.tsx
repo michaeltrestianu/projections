@@ -17,7 +17,7 @@ interface VybesReward {
 }
 
 const App: React.FC = () => {
-  const [costPercentage, setCostPercentage] = useState<number>(1.35);
+  const [costPercentage, setCostPercentage] = useState<number>(0.75);
   const [feePerTransaction, setFeePerTransaction] = useState<number>(0.1);
   const [totalCommissionPercentage, setTotalCommissionPercentage] =
     useState<number>(8);
@@ -29,14 +29,13 @@ const App: React.FC = () => {
     useState<number>(27);
   const [averageESGRating, setAverageESGRating] = useState<number>(75);
   const [numberOfUsersPerMonth, setNumberOfUsersPerMonth] = useState<number[]>([
-    100, 200, 250, 350, 500, 600, 1000, 1300, 1450, 1750, 1500, 2000, 3000,
-    3800, 5000, 7000, 10000, 10250, 13000, 18000, 25000, 32000, 40000, 50000,
+    100,300, 800, 1500, 3000, 6000, 10500, 14000, 19000, 26000, 30000, 35000, 45000, 55000,65000,75000,85000,95000, 105000, 115000, 125000, 135000,145000,155000
   ]);
   const [
     averageTransactionsPerUserPerMonth,
     setAverageTransactionsPerUserPerMonth,
   ] = useState<number>(10);
-  const [hostingCostPerMonth, setHostingCostPerMonth] = useState<number>(4000);
+  const [hostingCostPerMonth, setHostingCostPerMonth] = useState<number>(2900);
   const [apiServiceCostPerMonth, setApiServiceCostPerMonth] =
     useState<number>(1000);
   const [initialInvestment, setInitialInvestment] = useState<number>(150000);
@@ -92,7 +91,6 @@ const App: React.FC = () => {
           mb: 4,
         }}
       >
-        {/* Existing input fields */}
         <TextField
           label="Transaction Percentage Fee (%)"
           type="number"
