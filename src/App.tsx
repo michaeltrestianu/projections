@@ -92,7 +92,7 @@ const App: React.FC = () => {
         }}
       >
         <TextField
-          label="Transaction Percentage Fee (%)"
+          label="Transaction percentage fee (%)"
           type="number"
           value={costPercentage}
           onChange={(e) => setCostPercentage(parseFloat(e.target.value))}
@@ -104,7 +104,7 @@ const App: React.FC = () => {
           onChange={(e) => setFeePerTransaction(parseFloat(e.target.value))}
         />
         <TextField
-          label="Total Tillo Commission Percentage (%)"
+          label="Average Tillo commission available to us (%)"
           type="number"
           value={totalCommissionPercentage}
           onChange={(e) =>
@@ -112,7 +112,7 @@ const App: React.FC = () => {
           }
         />
         <TextField
-          label="Commission Passed to Customer (% of Total Commission)"
+          label="Tillo commission passed to customer (% of total commission)"
           type="number"
           value={commissionPassedToCustomerPercentage}
           onChange={(e) =>
@@ -121,7 +121,7 @@ const App: React.FC = () => {
           inputProps={{ min: 0, max: 100 }}
         />
         <TextField
-          label="Average Gift Card Transaction Value (£)"
+          label="Average gift card transaction value (£)"
           type="number"
           value={averageTransactionValue}
           onChange={(e) =>
@@ -129,7 +129,7 @@ const App: React.FC = () => {
           }
         />
         <TextField
-          label="Average ESG Rating (0 - 100)"
+          label="Average ESG rating (0 - 100)"
           type="number"
           value={averageESGRating}
           onChange={(e) => {
@@ -141,9 +141,8 @@ const App: React.FC = () => {
           inputProps={{ min: 0, max: 100 }}
         />
 
-        {/* Vybes Rewards Configuration */}
         <Box sx={{ mt: 2 }}>
-          <Typography variant="h6">Configure ESG Rewards:</Typography>
+          <Typography variant="h6">Configure ESG rewards:</Typography>
           {vybesRewards.map((reward, index) => (
             <Box
               key={index}
@@ -211,13 +210,13 @@ const App: React.FC = () => {
 
         {/* Remaining input fields */}
         <TextField
-          label="Number of Users per Month (comma-separated)"
+          label="Number of users per month (comma-separated)"
           fullWidth
           onChange={handleNumberOfUsersChange}
           defaultValue={numberOfUsersPerMonth}
         />
         <TextField
-          label="Average Transactions per User per Month"
+          label="Average number of gift card purchases per user per month"
           type="number"
           value={averageTransactionsPerUserPerMonth}
           onChange={(e) =>
@@ -225,13 +224,13 @@ const App: React.FC = () => {
           }
         />
         <TextField
-          label="Hosting Cost per Month (£)"
+          label="Decode costs per month (£)"
           type="number"
           value={hostingCostPerMonth}
           onChange={(e) => setHostingCostPerMonth(parseFloat(e.target.value))}
         />
         <TextField
-          label="API Service Cost per Month (£)"
+          label="Tillo API service cost per month (£)"
           type="number"
           value={apiServiceCostPerMonth}
           onChange={(e) =>
@@ -239,7 +238,7 @@ const App: React.FC = () => {
           }
         />
         <TextField
-          label="Initial Investment (£)"
+          label="Initial investment (£)"
           type="number"
           value={initialInvestment}
           onChange={(e) => setInitialInvestment(parseFloat(e.target.value))}
