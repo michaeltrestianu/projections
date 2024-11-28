@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 
 interface VybesReward {
-  minESG: number;
-  maxESG: number;
+  minTransactionValue: number;
+  maxTransactionValue: number;
   vybes: number;
 }
 
@@ -23,7 +23,8 @@ interface ProjectionTableProps {
   totalCommissionPercentage: number;
   commissionPassedToCustomerPercentage: number;
   averageTransactionValue: number;
-  averageESGRating: number;
+  vybesAwardedPerTransaction: number;
+  vybesValueInPounds: number;
   vybesRewards: VybesReward[];
   numberOfUsersPerMonth: number[];
   averageTransactionsPerUserPerMonth: number;
@@ -41,7 +42,7 @@ interface Projection {
   totalCommission: number;
   commissionPassedToCustomer: number;
   commissionKeptAsProfit: number;
-  vybesAwardedPerTransaction: number;
+  totalVybesAwardedPerTransaction: number;
   totalVybesAwarded: number;
   totalVybesValue: number;
   revenue: number;
@@ -57,7 +58,8 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
   totalCommissionPercentage,
   commissionPassedToCustomerPercentage,
   averageTransactionValue,
-  averageESGRating,
+  vybesAwardedPerTransaction,
+  vybesValueInPounds,
   vybesRewards,
   numberOfUsersPerMonth,
   averageTransactionsPerUserPerMonth,
@@ -65,11 +67,12 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
   apiServiceCostPerMonth,
   initialInvestment,
 }) => {
+
   const vybesRule = vybesRewards.find(
-    (rule) => averageESGRating >= rule.minESG && averageESGRating <= rule.maxESG
+    (rule) => averageTransactionValue >= rule.minTransactionValue && averageTransactionValue <= rule.maxTransactionValue
   );
 
-  const vybesAwardedPerTransaction = vybesRule ? vybesRule.vybes : 0;
+  const totalVybesAwardedPerTransaction = vybesRule ? vybesRule.vybes + vybesAwardedPerTransaction : vybesAwardedPerTransaction;
 
   if (
     costPercentage < 0 ||
@@ -78,8 +81,8 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
     commissionPassedToCustomerPercentage < 0 ||
     commissionPassedToCustomerPercentage > 100 ||
     averageTransactionValue <= 0 ||
-    averageESGRating < 0 ||
-    averageESGRating > 100 ||
+    vybesAwardedPerTransaction < 0 ||
+    vybesValueInPounds < 0 ||
     averageTransactionsPerUserPerMonth <= 0 ||
     numberOfUsersPerMonth.length === 0 ||
     hostingCostPerMonth < 0 ||
@@ -125,9 +128,9 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
 
     const commissionKeptAsProfit = totalCommission - commissionPassedToCustomer;
 
-    const totalVybesAwarded = vybesAwardedPerTransaction * transactionVolume;
+    const totalVybesAwarded = totalVybesAwardedPerTransaction * transactionVolume;
 
-    const totalVybesValue = totalVybesAwarded / 100;
+    const totalVybesValue = totalVybesAwarded * vybesValueInPounds;
 
     const revenue = commissionKeptAsProfit;
 
@@ -163,7 +166,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
       totalCommission,
       commissionPassedToCustomer,
       commissionKeptAsProfit,
-      vybesAwardedPerTransaction,
+      totalVybesAwardedPerTransaction,
       totalVybesAwarded,
       totalVybesValue,
       revenue,
@@ -248,7 +251,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
                   {formatCurrency(proj.commissionKeptAsProfit)}
                 </TableCell>
                 <TableCell align="center">
-                  {proj.vybesAwardedPerTransaction}
+                  {proj.totalVybesAwardedPerTransaction}
                 </TableCell>
                 <TableCell align="center">{proj.totalVybesAwarded}</TableCell>
                 <TableCell align="center">

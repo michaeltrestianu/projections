@@ -11,8 +11,8 @@ import { AddCircle, RemoveCircle } from "@mui/icons-material";
 import ProjectionTable from "./ProjectionTable";
 
 interface VybesReward {
-  minESG: number;
-  maxESG: number;
+  minTransactionValue: number;
+  maxTransactionValue: number;
   vybes: number;
 }
 
@@ -27,7 +27,8 @@ const App: React.FC = () => {
   ] = useState<number>(70);
   const [averageTransactionValue, setAverageTransactionValue] =
     useState<number>(27);
-  const [averageESGRating, setAverageESGRating] = useState<number>(75);
+  const [vybesAwardedPerTransaction, setVybesAwardedPerTransaction] = useState<number>(10);
+  const [vybesValueInPounds, setVybesValueInPounds] = useState<number>(0.001);
   const [numberOfUsersPerMonth, setNumberOfUsersPerMonth] = useState<number[]>([
     100,300, 800, 1500, 3000, 6000, 10500, 14000, 19000, 26000, 30000, 35000, 45000, 55000,65000,75000,85000,95000, 105000, 115000, 125000, 135000,145000,155000
   ]);
@@ -41,10 +42,7 @@ const App: React.FC = () => {
   const [initialInvestment, setInitialInvestment] = useState<number>(150000);
 
   const [vybesRewards, setVybesRewards] = useState<VybesReward[]>([
-    { minESG: 90, maxESG: 100, vybes: 12 },
-    { minESG: 75, maxESG: 89, vybes: 10 },
-    { minESG: 50, maxESG: 74, vybes: 8 },
-    { minESG: 0, maxESG: 49, vybes: 6 },
+    { minTransactionValue: 20, maxTransactionValue: 30, vybes: 2 },
   ]);
 
   const handleNumberOfUsersChange = (
@@ -68,7 +66,7 @@ const App: React.FC = () => {
   };
 
   const addVybesReward = () => {
-    setVybesRewards([...vybesRewards, { minESG: 0, maxESG: 0, vybes: 0 }]);
+    setVybesRewards([...vybesRewards, { minTransactionValue: 0, maxTransactionValue: 0, vybes: 0 }]);
   };
 
   const removeVybesReward = (index: number) => {
@@ -93,18 +91,20 @@ const App: React.FC = () => {
       >
         <TextField
           label="Transaction percentage fee (%)"
+          helperText="Tillo issuance fee"
           type="number"
           value={costPercentage}
           onChange={(e) => setCostPercentage(parseFloat(e.target.value))}
         />
         <TextField
           label="Fee per transaction (£)"
+          helperText="How much Token.io charge per transaction"
           type="number"
           value={feePerTransaction}
           onChange={(e) => setFeePerTransaction(parseFloat(e.target.value))}
         />
         <TextField
-          label="Average Tillo commission available to us (%)"
+          label="Average Tillo commission available to us from brands (%)"
           type="number"
           value={totalCommissionPercentage}
           onChange={(e) =>
@@ -129,20 +129,30 @@ const App: React.FC = () => {
           }
         />
         <TextField
-          label="Average ESG rating (0 - 100)"
+          label="Vybes awarded per transaction"
           type="number"
-          value={averageESGRating}
+          value={vybesAwardedPerTransaction}
           onChange={(e) => {
             const value = parseFloat(e.target.value);
             if (value >= 0 && value <= 100) {
-              setAverageESGRating(value);
+              setVybesAwardedPerTransaction(value);
             }
           }}
           inputProps={{ min: 0, max: 100 }}
         />
 
+        <TextField
+          label="Vybes value in (£)"
+          type="number"
+          value={vybesValueInPounds}
+          onChange={(e) => {
+            const value = parseFloat(e.target.value);
+              setVybesValueInPounds(value);
+          }}
+        />
+
         <Box sx={{ mt: 2 }}>
-          <Typography variant="h6">Configure ESG rewards:</Typography>
+          <Typography variant="h6">Configure Additional Transaction rewards:</Typography>
           {vybesRewards.map((reward, index) => (
             <Box
               key={index}
@@ -154,30 +164,30 @@ const App: React.FC = () => {
               }}
             >
               <TextField
-                label="Min ESG"
+                label="Min Transaction value in £"
                 type="number"
-                value={reward.minESG}
+                value={reward.minTransactionValue}
                 onChange={(e) =>
                   handleVybesRewardChange(
                     index,
-                    "minESG",
+                    "minTransactionValue",
                     parseFloat(e.target.value)
                   )
                 }
-                inputProps={{ min: 0, max: 100 }}
+                inputProps={{ min: 0 }}
               />
               <TextField
-                label="Max ESG"
+                label="Max Transaction value in £"
                 type="number"
-                value={reward.maxESG}
+                value={reward.maxTransactionValue}
                 onChange={(e) =>
                   handleVybesRewardChange(
                     index,
-                    "maxESG",
+                    "maxTransactionValue",
                     parseFloat(e.target.value)
                   )
                 }
-                inputProps={{ min: 0, max: 100 }}
+                inputProps={{ min: 0 }}
               />
               <TextField
                 label="Vybes"
@@ -230,7 +240,7 @@ const App: React.FC = () => {
           onChange={(e) => setHostingCostPerMonth(parseFloat(e.target.value))}
         />
         <TextField
-          label="Tillo API service cost per month (£)"
+          label="Tillo/Token.io API service cost per month (£)"
           type="number"
           value={apiServiceCostPerMonth}
           onChange={(e) =>
@@ -252,7 +262,8 @@ const App: React.FC = () => {
           commissionPassedToCustomerPercentage
         }
         averageTransactionValue={averageTransactionValue}
-        averageESGRating={averageESGRating}
+        vybesAwardedPerTransaction={vybesAwardedPerTransaction}
+        vybesValueInPounds={vybesValueInPounds}
         vybesRewards={vybesRewards}
         numberOfUsersPerMonth={numberOfUsersPerMonth}
         averageTransactionsPerUserPerMonth={averageTransactionsPerUserPerMonth}
