@@ -28,7 +28,7 @@ const App: React.FC = () => {
   const [averageTransactionValue, setAverageTransactionValue] =
     useState<number>(27);
   const [vybesAwardedPerTransaction, setVybesAwardedPerTransaction] = useState<number>(5);
-  const [vybesValueInPounds, setVybesValueInPounds] = useState<number>(0.01);
+  const [vybesValueInPounds, setVybesValueInPounds] = useState<number>(0.001);
   const [numberOfUsersPerMonth, setNumberOfUsersPerMonth] = useState<number[]>([
     100,300, 800, 1500, 3000, 6000, 10500, 14000, 19000, 26000, 30000, 35000, 45000, 55000,65000,75000,85000,95000, 105000, 115000, 125000, 135000,145000,155000
   ]);
@@ -44,8 +44,11 @@ const App: React.FC = () => {
   const [referralRewardPerNewCustomer, setReferralRewardPerNewCustomer] =
     useState<number>(3);
 
-    const [vybeReferralRewardPerNewCustomer, setVybeReferralRewardPerNewCustomer] =
+  const [vybeReferralRewardPerNewCustomer, setVybeReferralRewardPerNewCustomer] =
     useState<number>(50);
+
+    const [textMessageCostPerNewCustomer, setTextMessageCostPerNewCustomer] =
+    useState<number>(0.04);
 
   const [vybesRewards, setVybesRewards] = useState<VybesReward[]>([
     { minTransactionValue: 20, maxTransactionValue: 30, vybes: 3 },
@@ -241,6 +244,14 @@ const App: React.FC = () => {
         />
 
         <TextField
+          label="Text message cost per new customer (£)"
+          type="number"
+          value={textMessageCostPerNewCustomer}
+          onChange={e => setTextMessageCostPerNewCustomer(parseFloat(e.target.value))}
+          helperText="Paid to verify mobile number"
+        />
+
+        <TextField
           label="Number of users per month (comma-separated)"
           fullWidth
           onChange={handleNumberOfUsersChange}
@@ -293,6 +304,7 @@ const App: React.FC = () => {
         initialInvestment={initialInvestment}
         referralRewardPerNewCustomer={referralRewardPerNewCustomer}
         vybeReferralRewardPerNewCustomer={vybeReferralRewardPerNewCustomer}
+        textMessageCostPerNewCustomer={textMessageCostPerNewCustomer}
       />
     </Container>
   );

@@ -33,6 +33,7 @@ interface ProjectionTableProps {
   initialInvestment: number;
   referralRewardPerNewCustomer: number;
   vybeReferralRewardPerNewCustomer: number;
+  textMessageCostPerNewCustomer: number;
 }
 
 interface Projection {
@@ -40,6 +41,7 @@ interface Projection {
   numberOfUsers: number;
   newCustomerReferralCost: number;
   newCustomerVybeReferralCost: number;
+  newCustomerTextVerificationCost: number;
   transactionVolume: number;
   totalTransactionAmount: number;
   totalTransactionCostAmount: number;
@@ -72,6 +74,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
   initialInvestment,
   referralRewardPerNewCustomer,
   vybeReferralRewardPerNewCustomer,
+  textMessageCostPerNewCustomer,
 }) => {
 
   const vybesRule = vybesRewards.find(
@@ -123,12 +126,15 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
   let cumulativeNetProfit = -initialInvestment;
   let cumulativeNewCustomerReferralCost = 0;
   let cumulativeNewCustomerReferralVybeCost = 0;
+  let cumulativeNewCustomerTextVerificationCost = 0;
 
   for (let month = 1; month <= numberOfUsersPerMonth.length; month++) {
     const numberOfUsers = numberOfUsersPerMonth[month - 1];
     const newCust = newCustomersPerMonth[month-1];
     const newCustomerReferralCost = newCust * referralRewardPerNewCustomer;
     const newCustomerVybeReferralCost = newCust * (vybeReferralRewardPerNewCustomer / 1000);
+    const newCustomerTextVerificationCost = newCust * textMessageCostPerNewCustomer;
+
     const transactionVolume =
       numberOfUsers * averageTransactionsPerUserPerMonth;
 
@@ -151,7 +157,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
     const totalTransactionCostAmount =
       ((costPercentage / 100) * totalTransactionAmount) + (feePerTransaction * transactionVolume);
 
-    const netRevenue = revenue - totalTransactionCostAmount - totalVybesValue - newCustomerReferralCost - newCustomerVybeReferralCost;
+    const netRevenue = revenue - totalTransactionCostAmount - totalVybesValue - newCustomerReferralCost - newCustomerVybeReferralCost - newCustomerTextVerificationCost;
 
     const totalFixedCosts = hostingCostPerMonth + apiServiceCostPerMonth;
 
@@ -160,6 +166,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
     cumulativeNumberOfUsers += numberOfUsers;
     cumulativeNewCustomerReferralCost += newCustomerReferralCost;
     cumulativeNewCustomerReferralVybeCost += newCustomerVybeReferralCost;
+    cumulativeNewCustomerTextVerificationCost += newCustomerTextVerificationCost;
     cumulativeTransactionVolume += transactionVolume;
     cumulativeTotalTransactionAmount += totalTransactionAmount;
     cumulativeTotalTransactionCostAmount += totalTransactionCostAmount;
@@ -178,6 +185,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
       numberOfUsers,
       newCustomerReferralCost,
       newCustomerVybeReferralCost,
+      newCustomerTextVerificationCost,
       transactionVolume,
       totalTransactionAmount,
       totalTransactionCostAmount,
@@ -217,6 +225,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
               <TableCell align="center">Number of Users</TableCell>
               <TableCell align="center">New Customer Referral Cost (£)</TableCell>
               <TableCell align="center">New Customer Referral Cost (vybe)</TableCell>
+              <TableCell align="center">New Customer text verification Cost (£)</TableCell>
               <TableCell align="center">Transaction Volume</TableCell>
               <TableCell align="center">Total Transaction Amount (£)</TableCell>
               <TableCell align="center">
@@ -256,6 +265,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
                 <TableCell align="center">{proj.numberOfUsers}</TableCell>
                 <TableCell align="center">{formatCurrency(proj.newCustomerReferralCost)}</TableCell>
                 <TableCell align="center">{formatCurrency(proj.newCustomerVybeReferralCost)}</TableCell>
+                <TableCell align="center">{formatCurrency(proj.newCustomerTextVerificationCost)}</TableCell>
                 <TableCell align="center">{proj.transactionVolume}</TableCell>
                 <TableCell align="center">
                   {formatCurrency(proj.totalTransactionAmount)}
@@ -311,6 +321,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
               </TableCell>
               <TableCell align="center"><strong>{formatCurrency(cumulativeNewCustomerReferralCost)}</strong></TableCell>
               <TableCell align="center"><strong>{formatCurrency(cumulativeNewCustomerReferralVybeCost)}</strong></TableCell>
+              <TableCell align="center"><strong>{formatCurrency(cumulativeNewCustomerTextVerificationCost)}</strong></TableCell>
               <TableCell align="center">
                 <strong>{cumulativeTransactionVolume}</strong>
               </TableCell>
