@@ -41,6 +41,12 @@ const App: React.FC = () => {
     useState<number>(1000);
   const [initialInvestment, setInitialInvestment] = useState<number>(150000);
 
+  const [referralRewardPerNewCustomer, setReferralRewardPerNewCustomer] =
+    useState<number>(3);
+
+    const [vybeReferralRewardPerNewCustomer, setVybeReferralRewardPerNewCustomer] =
+    useState<number>(50);
+
   const [vybesRewards, setVybesRewards] = useState<VybesReward[]>([
     { minTransactionValue: 20, maxTransactionValue: 30, vybes: 3 },
   ]);
@@ -218,7 +224,22 @@ const App: React.FC = () => {
           </Button>
         </Box>
 
-        {/* Remaining input fields */}
+        <TextField
+          label="Referral reward per new customer (£)"
+          type="number"
+          value={referralRewardPerNewCustomer}
+          onChange={e => setReferralRewardPerNewCustomer(parseFloat(e.target.value))}
+          helperText="Paid once after first purchase"
+        />
+
+        <TextField
+          label="Referral reward per new customer (vybes)"
+          type="number"
+          value={vybeReferralRewardPerNewCustomer}
+          onChange={e => setVybeReferralRewardPerNewCustomer(parseFloat(e.target.value))}
+          helperText="Paid once after first purchase"
+        />
+
         <TextField
           label="Number of users per month (comma-separated)"
           fullWidth
@@ -270,6 +291,8 @@ const App: React.FC = () => {
         hostingCostPerMonth={hostingCostPerMonth}
         apiServiceCostPerMonth={apiServiceCostPerMonth}
         initialInvestment={initialInvestment}
+        referralRewardPerNewCustomer={referralRewardPerNewCustomer}
+        vybeReferralRewardPerNewCustomer={vybeReferralRewardPerNewCustomer}
       />
     </Container>
   );
