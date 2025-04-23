@@ -132,7 +132,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
     const numberOfUsers = numberOfUsersPerMonth[month - 1];
     const newCust = newCustomersPerMonth[month-1];
     const newCustomerReferralCost = newCust * referralRewardPerNewCustomer;
-    const newCustomerVybeReferralCost = newCust * (vybeReferralRewardPerNewCustomer / 1000);
+    const newCustomerVybeReferralCost = newCust * (vybeReferralRewardPerNewCustomer * vybesValueInPounds);
     const newCustomerTextVerificationCost = newCust * textMessageCostPerNewCustomer;
 
     const transactionVolume =
