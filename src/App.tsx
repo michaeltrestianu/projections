@@ -27,7 +27,7 @@ const App: React.FC = () => {
   ] = useState<number>(70);
   const [averageTransactionValue, setAverageTransactionValue] =
     useState<number>(27);
-  const [vybesAwardedPerTransaction, setVybesAwardedPerTransaction] = useState<number>(50);
+  const [vybesAwardedPerTransaction, setVybesAwardedPerTransaction] = useState<number>(30);
   const [vybesValueInPounds, setVybesValueInPounds] = useState<number>(0.001);
   const [numberOfUsersPerMonth, setNumberOfUsersPerMonth] = useState<number[]>([
     100,300, 800, 1500, 3000, 6000, 10500, 14000, 19000, 26000, 30000, 35000, 45000, 55000,65000,75000,85000,95000, 105000, 115000, 125000, 135000,145000,155000
