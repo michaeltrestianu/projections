@@ -270,6 +270,7 @@ const App: React.FC = () => {
           type="number"
           value={hostingCostPerMonth}
           onChange={(e) => setHostingCostPerMonth(parseFloat(e.target.value))}
+          helperText="SNA & hosting costs"
         />
         <TextField
           label="Tillo/Token.io API service cost per month (£)"
