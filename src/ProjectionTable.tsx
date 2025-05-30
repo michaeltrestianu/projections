@@ -30,6 +30,7 @@ interface ProjectionTableProps {
   averageTransactionsPerUserPerMonth: number;
   hostingCostPerMonth: number;
   apiServiceCostPerMonth: number;
+  marketingCostPerMonth: number;
   initialInvestment: number;
   referralRewardPerNewCustomer: number;
   vybeReferralRewardPerNewCustomer: number;
@@ -71,6 +72,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
   averageTransactionsPerUserPerMonth,
   hostingCostPerMonth,
   apiServiceCostPerMonth,
+  marketingCostPerMonth,
   initialInvestment,
   referralRewardPerNewCustomer,
   vybeReferralRewardPerNewCustomer,
@@ -99,6 +101,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
     numberOfUsersPerMonth.length === 0 ||
     hostingCostPerMonth < 0 ||
     apiServiceCostPerMonth < 0 ||
+    marketingCostPerMonth < 0 ||
     vybesRewards.length === 0 ||
     initialInvestment < 0
   ) {
@@ -159,7 +162,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
 
     const netRevenue = revenue - totalTransactionCostAmount - totalVybesValue - newCustomerReferralCost - newCustomerVybeReferralCost - newCustomerTextVerificationCost;
 
-    const totalFixedCosts = hostingCostPerMonth + apiServiceCostPerMonth;
+    const totalFixedCosts = hostingCostPerMonth + apiServiceCostPerMonth + marketingCostPerMonth;
 
     const netProfit = netRevenue - totalFixedCosts;
 

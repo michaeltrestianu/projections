@@ -39,6 +39,8 @@ const App: React.FC = () => {
   const [hostingCostPerMonth, setHostingCostPerMonth] = useState<number>(2900);
   const [apiServiceCostPerMonth, setApiServiceCostPerMonth] =
     useState<number>(3000);
+    const [marketingCostPerMonth, setMarketingCostPerMonth] =
+    useState<number>(2000);
   const [initialInvestment, setInitialInvestment] = useState<number>(200000);
 
   const [referralRewardPerNewCustomer, setReferralRewardPerNewCustomer] =
@@ -281,6 +283,14 @@ const App: React.FC = () => {
           }
         />
         <TextField
+          label="Marketing cost per month (£)"
+          type="number"
+          value={marketingCostPerMonth}
+          onChange={(e) =>
+            setMarketingCostPerMonth(parseFloat(e.target.value))
+          }
+        />
+        <TextField
           label="Initial investment (£)"
           type="number"
           value={initialInvestment}
@@ -302,6 +312,7 @@ const App: React.FC = () => {
         averageTransactionsPerUserPerMonth={averageTransactionsPerUserPerMonth}
         hostingCostPerMonth={hostingCostPerMonth}
         apiServiceCostPerMonth={apiServiceCostPerMonth}
+        marketingCostPerMonth={marketingCostPerMonth}
         initialInvestment={initialInvestment}
         referralRewardPerNewCustomer={referralRewardPerNewCustomer}
         vybeReferralRewardPerNewCustomer={vybeReferralRewardPerNewCustomer}
