@@ -11,12 +11,6 @@ import {
   Paper,
 } from "@mui/material";
 
-interface VybesReward {
-  minTransactionValue: number;
-  maxTransactionValue: number;
-  vybes: number;
-}
-
 interface ProjectionTableProps {
   costPercentage: number;
   feePerTransaction: number;
@@ -25,7 +19,6 @@ interface ProjectionTableProps {
   averageTransactionValue: number;
   vybesAwardedPerTransaction: number;
   vybesValueInPounds: number;
-  vybesRewards: VybesReward[];
   numberOfUsersPerMonth: number[];
   averageTransactionsPerUserPerMonth: number;
   hostingCostPerMonth: number;
@@ -67,7 +60,6 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
   averageTransactionValue,
   vybesAwardedPerTransaction,
   vybesValueInPounds,
-  vybesRewards,
   numberOfUsersPerMonth,
   averageTransactionsPerUserPerMonth,
   hostingCostPerMonth,
@@ -79,11 +71,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
   textMessageCostPerNewCustomer,
 }) => {
 
-  const vybesRule = vybesRewards.find(
-    (rule) => averageTransactionValue >= rule.minTransactionValue && averageTransactionValue <= rule.maxTransactionValue
-  );
-
-  const totalVybesAwardedPerTransaction = vybesRule ? vybesRule.vybes + vybesAwardedPerTransaction : vybesAwardedPerTransaction;
+  const totalVybesAwardedPerTransaction = vybesAwardedPerTransaction;
   const newCustomersPerMonth = numberOfUsersPerMonth.map((u, i) =>
     i === 0 ? u : Math.max(u - numberOfUsersPerMonth[i - 1], 0)
   );
@@ -102,7 +90,6 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
     hostingCostPerMonth < 0 ||
     apiServiceCostPerMonth < 0 ||
     marketingCostPerMonth < 0 ||
-    vybesRewards.length === 0 ||
     initialInvestment < 0
   ) {
     return (

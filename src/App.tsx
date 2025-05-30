@@ -52,10 +52,6 @@ const App: React.FC = () => {
     const [textMessageCostPerNewCustomer, setTextMessageCostPerNewCustomer] =
     useState<number>(0.04);
 
-  const [vybesRewards, setVybesRewards] = useState<VybesReward[]>([
-    { minTransactionValue: 20, maxTransactionValue: 30, vybes: 30 },
-  ]);
-
   const handleNumberOfUsersChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -64,26 +60,6 @@ const App: React.FC = () => {
       .map((v) => parseInt(v.trim(), 10))
       .filter((v) => !isNaN(v));
     setNumberOfUsersPerMonth(users);
-  };
-
-  const handleVybesRewardChange = (
-    index: number,
-    field: keyof VybesReward,
-    value: number
-  ) => {
-    const newVybesRewards = [...vybesRewards];
-    newVybesRewards[index][field] = value;
-    setVybesRewards(newVybesRewards);
-  };
-
-  const addVybesReward = () => {
-    setVybesRewards([...vybesRewards, { minTransactionValue: 0, maxTransactionValue: 0, vybes: 0 }]);
-  };
-
-  const removeVybesReward = (index: number) => {
-    const newVybesRewards = [...vybesRewards];
-    newVybesRewards.splice(index, 1);
-    setVybesRewards(newVybesRewards);
   };
 
   return (
@@ -161,73 +137,6 @@ const App: React.FC = () => {
               setVybesValueInPounds(value);
           }}
         />
-
-        <Box sx={{ mt: 2 }}>
-          <Typography variant="h6">Configure Additional Transaction rewards:</Typography>
-          {vybesRewards.map((reward, index) => (
-            <Box
-              key={index}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                mt: 1,
-              }}
-            >
-              <TextField
-                label="Min Transaction value in £"
-                type="number"
-                value={reward.minTransactionValue}
-                onChange={(e) =>
-                  handleVybesRewardChange(
-                    index,
-                    "minTransactionValue",
-                    parseFloat(e.target.value)
-                  )
-                }
-                inputProps={{ min: 0 }}
-              />
-              <TextField
-                label="Max Transaction value in £"
-                type="number"
-                value={reward.maxTransactionValue}
-                onChange={(e) =>
-                  handleVybesRewardChange(
-                    index,
-                    "maxTransactionValue",
-                    parseFloat(e.target.value)
-                  )
-                }
-                inputProps={{ min: 0 }}
-              />
-              <TextField
-                label="Vybes"
-                type="number"
-                value={reward.vybes}
-                onChange={(e) =>
-                  handleVybesRewardChange(
-                    index,
-                    "vybes",
-                    parseFloat(e.target.value)
-                  )
-                }
-                inputProps={{ min: 0 }}
-              />
-              <IconButton onClick={() => removeVybesReward(index)}>
-                <RemoveCircle color="error" />
-              </IconButton>
-            </Box>
-          ))}
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddCircle />}
-            onClick={addVybesReward}
-            sx={{ mt: 1 }}
-          >
-            Add Reward Rule
-          </Button>
-        </Box>
 
         <TextField
           label="Referral reward per new customer (£)"
@@ -307,7 +216,6 @@ const App: React.FC = () => {
         averageTransactionValue={averageTransactionValue}
         vybesAwardedPerTransaction={vybesAwardedPerTransaction}
         vybesValueInPounds={vybesValueInPounds}
-        vybesRewards={vybesRewards}
         numberOfUsersPerMonth={numberOfUsersPerMonth}
         averageTransactionsPerUserPerMonth={averageTransactionsPerUserPerMonth}
         hostingCostPerMonth={hostingCostPerMonth}
