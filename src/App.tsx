@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const [
     commissionPassedToCustomerPercentage,
     setCommissionPassedToCustomerPercentage,
-  ] = useState<number>(70);
+  ] = useState<number>(75);
   const [averageTransactionValue, setAverageTransactionValue] =
     useState<number>(27);
   const [vybesAwardedPerTransaction, setVybesAwardedPerTransaction] = useState<number>(30);
@@ -36,7 +36,7 @@ const App: React.FC = () => {
     averageTransactionsPerUserPerMonth,
     setAverageTransactionsPerUserPerMonth,
   ] = useState<number>(10);
-  const [hostingCostPerMonth, setHostingCostPerMonth] = useState<number>(2900);
+  const [hostingCostPerMonth, setHostingCostPerMonth] = useState<number>(3300);
   const [apiServiceCostPerMonth, setApiServiceCostPerMonth] =
     useState<number>(3000);
     const [marketingCostPerMonth, setMarketingCostPerMonth] =
