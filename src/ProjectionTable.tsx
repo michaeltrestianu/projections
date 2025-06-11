@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Button,
 } from "@mui/material";
 
 interface ProjectionTableProps {
@@ -202,11 +203,49 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
     return value < 0 ? `-${formattedValue}` : formattedValue;
   };
 
+  const handleExportCSV = (): void => {
+    const rows = projections.map((p) => ({
+      Month: p.month,
+      Users: p.numberOfUsers,
+      "Referral Cost (£)": `"${formatCurrency(p.newCustomerReferralCost)}"`,
+      "Vybe Referral Cost (£)": `"${formatCurrency(p.newCustomerVybeReferralCost)}"`,
+      "Text Verification Cost (£)": `"${formatCurrency(p.newCustomerTextVerificationCost)}"`,
+      "Transaction Volume": p.transactionVolume,
+      "Total Tx Amount (£)": `"${formatCurrency(p.totalTransactionAmount)}"`,
+      "Total Tx Cost (£)": `"${formatCurrency(p.totalTransactionCostAmount)}"`,
+      "Total Commission (£)": `"${formatCurrency(p.totalCommission)}"`,
+      "Commission to Customer (£)": `"${formatCurrency(p.commissionPassedToCustomer)}"`,
+      "Commission Profit (£)": `"${formatCurrency(p.commissionKeptAsProfit)}"`,
+      "Vybes/Tx": vybesAwardedPerTransaction,
+      "Total Vybes": p.totalVybesAwarded,
+      "Vybes Value (£)": `"${formatCurrency(p.totalVybesValue)}"`,
+      "Revenue (£)": `"${formatCurrency(p.revenue)}"`,
+      "Net Revenue (£)": `"${formatCurrency(p.netRevenue)}"`,
+      "Fixed Costs (£)": `"${formatCurrency(p.totalFixedCosts)}"`,
+      "Net Profit (£)": `"${formatCurrency(p.netProfit)}"`,
+      "Cumulative Net Profit (£)": `"${formatCurrency(p.cumulativeNetProfit)}"`,
+    }));
+    const header = Object.keys(rows[0]).join(",") + "\n";
+    const csvBody = rows
+      .map((r) => Object.values(r).join(","))
+      .join("\n");
+    const blob = new Blob([header + csvBody], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "monthly_projections.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Box>
       <Typography variant="h5" align="center" gutterBottom>
         Monthly Projections for the Year
       </Typography>
+      <Button variant="contained" onClick={handleExportCSV} sx={{ mb: 2 }}>
+        Export Data
+      </Button>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
