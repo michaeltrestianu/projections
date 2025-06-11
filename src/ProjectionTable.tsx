@@ -246,6 +246,68 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
       <Button variant="contained" onClick={handleExportCSV} sx={{ mb: 2 }}>
         Export Data
       </Button>
+       <Box mb={2}>
+        <Typography variant="subtitle1">How to read each column:</Typography>
+        <Box component="ul" sx={{ pl: 2 }}>
+          <Box component="li">
+            <strong>Month</strong>: Sequential month number (1, 2, …).
+          </Box>
+          <Box component="li">
+            <strong>Number of Users</strong>: Total active users that month.
+          </Box>
+          <Box component="li">
+            <strong>New Customer Referral Cost (£)</strong>: New users × referral Reward Per New Customer.
+          </Box>
+          <Box component="li">
+            <strong>New Customer Referral Cost (vybe)</strong>: New users × vybe Referral Reward Per NewCustomer × vybes Value In Pounds.
+          </Box>
+          <Box component="li">
+            <strong>New Customer Text Verification Cost (£)</strong>: New users × text Message Cost Per New Customer.
+          </Box>
+          <Box component="li">
+            <strong>Transaction Volume</strong>: Number Of Users × average Transactions Per User Per Month.
+          </Box>
+          <Box component="li">
+            <strong>Total Transaction Amount (£)</strong>: Average transaction value × transaction volume.
+          </Box>
+          <Box component="li">
+            <strong>Total Transaction Amount Cost (£)</strong>: Tillo issuance fee % of the total transaction amount + (fee per transaction × transaction volume).
+          </Box>
+          <Box component="li">
+            <strong>Total Commission (£)</strong>: Average availble Tillo commission (e.g over 200 brands rate is 8%) as a percentage of total transaction amount.
+          </Box>
+          <Box component="li">
+            <strong>Commission Passed to Customer (£)</strong>: Commission passed to customer (e.g 10% discount from Tillo we pass 75%) percentage% of total commission.
+          </Box>
+          <Box component="li">
+            <strong>Commission Kept as Profit (£)</strong>: Total commission − commission passed to customer.
+          </Box>
+          <Box component="li">
+            <strong>Vybes Awarded per Transaction</strong>: Vybes awarded per transaction.
+          </Box>
+          <Box component="li">
+            <strong>Total Vybes Awarded</strong>: Vybes awarded per transaction × transaction volume.
+          </Box>
+          <Box component="li">
+            <strong>Total Vybes Value (£)</strong>: Total vybes awarded × vybes value in pounds.
+          </Box>
+          <Box component="li">
+            <strong>Revenue (£)</strong>: Commission kept as profit.
+          </Box>
+          <Box component="li">
+            <strong>Net Revenue (£)</strong>: Revenue − transaction costs − vybes value − all new customer acquisition costs.
+          </Box>
+          <Box component="li">
+            <strong>Total Fixed Costs (£)</strong>: Hosting & decode cost per month + api services cost per month + marketing cost per month.
+          </Box>
+          <Box component="li">
+            <strong>Net Profit (£)</strong>: Net revenue − total fixed costs.
+          </Box>
+          <Box component="li">
+            <strong>Cumulative Net Profit (£)</strong>: Running total profit minus initial investment.
+          </Box>
+        </Box>
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
