@@ -271,7 +271,7 @@ const ProjectionTable: React.FC<ProjectionTableProps> = ({
             <strong>Total Transaction Amount (£)</strong>: Average transaction value × transaction volume.
           </Box>
           <Box component="li">
-            <strong>Total Transaction Amount Cost (£)</strong>: Tillo issuance fee % of the total transaction amount + (fee per transaction × transaction volume).
+            <strong>Total Transaction Amount Cost (£)</strong>: Tillo issuance fee (%) of the total transaction amount + (fee per transaction × transaction volume).
           </Box>
           <Box component="li">
             <strong>Total Commission (£)</strong>: Average availble Tillo commission (e.g over 200 brands rate is 8%) as a percentage of total transaction amount.
