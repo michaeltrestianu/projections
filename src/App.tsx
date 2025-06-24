@@ -4,21 +4,12 @@ import {
   Typography,
   TextField,
   Box,
-  Button,
-  IconButton,
 } from "@mui/material";
-import { AddCircle, RemoveCircle } from "@mui/icons-material";
 import ProjectionTable from "./ProjectionTable";
-
-interface VybesReward {
-  minTransactionValue: number;
-  maxTransactionValue: number;
-  vybes: number;
-}
 
 const App: React.FC = () => {
   const [costPercentage, setCostPercentage] = useState<number>(0.75);
-  const [feePerTransaction, setFeePerTransaction] = useState<number>(0.25);
+  const [feePerTransaction, setFeePerTransaction] = useState<number>(0.10);
   const [totalCommissionPercentage, setTotalCommissionPercentage] =
     useState<number>(8);
   const [
@@ -40,7 +31,7 @@ const App: React.FC = () => {
   const [apiServiceCostPerMonth, setApiServiceCostPerMonth] =
     useState<number>(3000);
     const [marketingCostPerMonth, setMarketingCostPerMonth] =
-    useState<number>(2000);
+    useState<number>(2083);
   const [initialInvestment, setInitialInvestment] = useState<number>(200000);
 
   const [referralRewardPerNewCustomer, setReferralRewardPerNewCustomer] =
